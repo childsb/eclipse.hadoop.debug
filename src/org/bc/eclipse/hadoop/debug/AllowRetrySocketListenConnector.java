@@ -118,5 +118,11 @@ public class AllowRetrySocketListenConnector extends SocketListenConnector  {
 			abort(LaunchingMessages.SocketListenConnector_4, e, IJavaLaunchConfigurationConstants.ERR_REMOTE_VM_CONNECTION_FAILED);
 		}
 	}
-
+	public String getName() {
+		return "restartable socket listen connector";
+	}
+	
+	public String getIdentifier() {
+		return "org.bc.eclipse.hadoop.debug.launching.AllowRetrySocketListenConnector";
+	}
 }

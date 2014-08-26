@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-
+<!--
    <extension
          id="sampleBuilder"
          name="Sample Project Builder"
@@ -13,100 +13,44 @@
          </run>
       </builder>
    </extension>
-   <extension
-         id="sampleNature"
-         name="Sample Project Nature"
-         point="org.eclipse.core.resources.natures">
-      <runtime>
-         <run
-               class="org.bc.hadoop.ide.builder.SampleNature">
-         </run>
-      </runtime>
-      <builder
-            id="org.bc.hadoop.ide.sampleBuilder">
-      </builder>
+ 
+ -->
+    <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+
+      <launchConfigurationTypeImage
+            icon="icons/full/etool16/java_attach.gif"
+            configTypeID="org.bc.eclipse.hadoop.debug.launching.RemoteJavaApplicationTabGroup"
+            id="org.bc.eclipse.hadoop.debug.launching.RemoteHadoopApp">
+      </launchConfigurationTypeImage>
+
    </extension>
-   <extension
-         point="org.eclipse.ui.commands">
-      <category
-            name="Sample Project Nature commands"
-            id="org.bc.hadoop.ide.sampleNature.category">
-      </category>
-      <command
-            name="Add/RemoveSample Project Nature"
-            defaultHandler="org.bc.hadoop.ide.builder.AddRemoveSampleNatureHandler"
-            categoryId="org.bc.hadoop.ide.sampleNature.category"
-            id="org.bc.hadoop.ide.addRemoveSampleNature">
-      </command>
+   <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      
+      <launchConfigurationTabGroup
+            type="org.bc.eclipse.hadoop.debug.launching.RemoteJavaApplicationTabGroup"
+            description="Hadoop java debug connection listener"
+           
+            class="org.bc.eclipse.hadoop.debug.RemoteJavaApplicationTabGroup"
+            id="org.bc.eclipse.hadoop.debug.launching.launchConfigurationTabGroup.remoteJavaApplication">
+      </launchConfigurationTabGroup>
+      
    </extension>
-   <extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            locationURI="popup:org.eclipse.ui.projectConfigure?after=additions">
-         <command
-               commandId="org.bc.hadoop.ide.addRemoveSampleNature"
-               label="Disable Sample builder"
-               style="push">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="selection">
-                  <count
-                        value="1">
-                  </count>
-                  <iterate>
-                     <and>
-                        <instanceof
-                              value="org.eclipse.core.resources.IProject">
-                        </instanceof>
-                        <test
-                              value="org.bc.hadoop.ide.sampleNature"
-                              property="org.eclipse.core.resources.projectNature">
-                        </test>
-                     </and>
-                  </iterate>
-               </with>
-            </visibleWhen>
-         </command>
-         <command
-               commandId="org.bc.hadoop.ide.addRemoveSampleNature"
-               label="Enable Sample builder"
-               style="push">
-            <visibleWhen
-                  checkEnabled="false">
-               <with
-                     variable="selection">
-                  <count
-                        value="1">
-                  </count>
-                  <iterate>
-                     <and>
-                        <instanceof
-                              value="org.eclipse.core.resources.IProject">
-                        </instanceof>
-                        <not>
-                           <test
-                                 value="org.bc.hadoop.ide.sampleNature"
-                                 property="org.eclipse.core.resources.projectNature">
-                           </test>
-                        </not>
-                     </and>
-                  </iterate>
-               </with>
-            </visibleWhen>
-         </command>
-      </menuContribution>
-   </extension>
-   <extension
-         id="xmlProblem"
-         name="XML Problem"
-         point="org.eclipse.core.resources.markers">
-      <super
-            type="org.eclipse.core.resources.problemmarker">
-      </super>
-      <persistent
-            value="true">
-      </persistent>
+      <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+    
+      <launchConfigurationType
+            delegate="org.eclipse.jdt.internal.launching.JavaRemoteApplicationLaunchConfigurationDelegate"
+            delegateDescription="hadoop java app"
+            delegateName="hadoop java app delegate"
+            id="org.bc.eclipse.hadoop.debug.launching.RemoteJavaApplicationTabGroup"
+            migrationDelegate="org.eclipse.jdt.internal.launching.JavaMigrationDelegate"
+            modes="debug"
+            name="hadoop java app"
+            sourceLocatorId="org.eclipse.jdt.launching.sourceLocator.JavaSourceLookupDirector"
+            sourcePathComputerId="org.eclipse.jdt.launching.sourceLookup.javaSourcePathComputer">
+      </launchConfigurationType>
+     
    </extension>
 <extension
          point="org.eclipse.jdt.launching.vmConnectors">
